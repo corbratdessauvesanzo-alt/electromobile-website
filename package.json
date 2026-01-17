@@ -1,0 +1,9 @@
+{
+  "name": "the-green-bike",
+  "version": "2.0.0",
+  "description": "The Green Bike - Réparation, location et vente de vélos - Loir en Vallée",
+  "scripts": {
+    "dev": "npx serve public",
+    "build": "echo 'Static site - no build needed'"
+  }
+}

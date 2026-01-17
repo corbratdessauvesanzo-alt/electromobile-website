@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Green Bike - Réparation & Location de vélos - Loir en Vallée</title>
+<meta name="description" content="Atelier de réparation, location et vente de vélos au bord de la Voie Verte. 33 route de Poncé, 72340 Loir en Vallée. Label Accueil Vélo.">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary-green:#7FFF00;--dark-bg:#0A0A0A;--card-bg:#1A1A1A;--text-white:#FFF;--text-gray:#B0B0B0;--border-color:#2A2A2A;--hover-green:#6EE000}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:var(--dark-bg);color:var(--text-white);overflow-x:hidden}
+.navbar{position:fixed;top:0;width:100%;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);border-bottom:2px solid var(--primary-green);z-index:1000;animation:slideDown .6s ease-out}
+@keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.nav-container{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.logo-container{display:flex;align-items:center;gap:1rem}
+.logo-img{width:60px;height:60px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(127,255,0,.5))}
+.logo-text{font-family:'Righteous',cursive;font-size:1.8rem;color:var(--primary-green);text-transform:uppercase;letter-spacing:1px;text-shadow:0 0 20px rgba(127,255,0,.5)}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{color:var(--text-white);text-decoration:none;font-weight:600;font-size:.95rem;position:relative;transition:all .3s ease;cursor:pointer;text-transform:uppercase;letter-spacing:.5px}
+.nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--primary-green);transition:width .3s ease;box-shadow:0 0 10px var(--primary-green)}
+.nav-links a:hover,.nav-links a.active{color:var(--primary-green)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.contact-btn{background:var(--primary-green)!important;color:var(--dark-bg)!important;padding:.7rem 1.5rem;border-radius:8px;font-weight:700;transition:all .3s ease;box-shadow:0 0 20px rgba(127,255,0,.3)}
+.contact-btn:hover{background:var(--hover-green);transform:translateY(-2px);box-shadow:0 0 30px rgba(127,255,0,.5)}
+.contact-btn::after{display:none}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.menu-toggle span{width:25px;height:3px;background:var(--primary-green);transition:.3s;box-shadow:0 0 5px var(--primary-green)}
+.hero{margin-top:90px;min-height:90vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#0A0A0A 0%,#1A1A1A 100%)}
+.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:800px;height:800px;background:radial-gradient(circle,rgba(127,255,0,.15),transparent 70%);animation:pulse 8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1) rotate(0deg);opacity:.3}50%{transform:scale(1.3) rotate(180deg);opacity:.5}}
+.hero-content{max-width:1400px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.hero-text h1{font-size:4rem;font-weight:800;line-height:1.1;margin-bottom:1.5rem;animation:fadeInUp .8s ease-out .2s both}
+.hero-text h1 .green-text{color:var(--primary-green);text-shadow:0 0 30px rgba(127,255,0,.5)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-text p{font-size:1.2rem;color:var(--text-gray);margin-bottom:2.5rem;line-height:1.8;animation:fadeInUp .8s ease-out .4s both}
+.hero-text .phone{font-size:1.5rem;color:var(--primary-green);font-weight:700;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;animation:fadeInUp .8s ease-out .6s both}
+.phone-icon{font-size:2rem}
+.cta-buttons{display:flex;gap:1.5rem;animation:fadeInUp .8s ease-out .8s both}
+.btn{padding:1rem 2.5rem;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s ease;text-decoration:none;display:inline-block;text-transform:uppercase;letter-spacing:.5px}
+.btn-primary{background:var(--primary-green);color:var(--dark-bg);box-shadow:0 4px 20px rgba(127,255,0,.4)}
+.btn-primary:hover{background:var(--hover-green);transform:translateY(-3px);box-shadow:0 6px 30px rgba(127,255,0,.6)}
+.btn-secondary{background:transparent;color:var(--primary-green);border:2px solid var(--primary-green)}
+.btn-secondary:hover{background:var(--primary-green);color:var(--dark-bg);transform:translateY(-3px)}
+.hero-visual{position:relative;animation:fadeInUp .8s ease-out 1s both}
+.hero-logo{width:100%;max-width:500px;margin:0 auto;display:block;filter:drop-shadow(0 0 50px rgba(127,255,0,.5))}
+.services{padding:8rem 2rem;max-width:1400px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:5rem}
+.section-header h2{font-size:3.5rem;font-weight:800;margin-bottom:1rem;color:var(--primary-green);text-shadow:0 0 30px rgba(127,255,0,.3)}
+.section-header p{color:var(--text-gray);font-size:1.2rem}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.service-card{background:var(--card-bg);border:2px solid var(--border-color);border-radius:20px;padding:2.5rem;transition:all .4s ease;cursor:pointer;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:var(--primary-green);transform:scaleX(0);transition:transform .4s ease;box-shadow:0 0 15px var(--primary-green)}
+.service-card:hover{transform:translateY(-10px);border-color:var(--primary-green);box-shadow:0 20px 40px rgba(127,255,0,.2)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-icon{font-size:4rem;margin-bottom:1.5rem;display:inline-block;filter:drop-shadow(0 0 10px var(--primary-green))}
+.service-card h3{font-size:1.8rem;font-weight:700;margin-bottom:1rem;color:var(--primary-green)}
+.service-card p{color:var(--text-gray);line-height:1.8;margin-bottom:1.5rem}
+.service-link{color:var(--primary-green);font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:gap .3s ease;text-transform:uppercase;font-size:.9rem;letter-spacing:.5px}
+.service-link:hover{gap:1rem}
+.page-content{display:none;min-height:70vh;padding:8rem 2rem;max-width:1400px;margin:0 auto}
+.page-content.active{display:block;animation:fadeIn .5s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.page-header{text-align:center;margin-bottom:4rem}
+.page-header h1{font-size:4rem;font-weight:800;margin-bottom:1rem;color:var(--primary-green);text-shadow:0 0 30px rgba(127,255,0,.3)}
+.page-header .subtitle{font-size:1.3rem;color:var(--text-gray)}
+.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2.5rem;margin-top:3rem}
+.content-card{background:var(--card-bg);border:2px solid var(--border-color);border-radius:20px;padding:2.5rem;transition:all .3s ease}
+.content-card:hover{transform:translateY(-5px);border-color:var(--primary-green);box-shadow:0 15px 40px rgba(127,255,0,.2)}
+.content-card h3{font-size:1.8rem;margin-bottom:1.5rem;color:var(--primary-green);font-weight:700}
+.content-card ul{list-style:none;color:var(--text-gray)}
+.content-card ul li{padding:.8rem 0;padding-left:2rem;position:relative;line-height:1.6;font-size:1.05rem}
+.content-card ul li::before{content:'→';position:absolute;left:0;color:var(--primary-green);font-weight:700;font-size:1.3rem}
+.content-card .price{font-size:2rem;font-weight:800;color:var(--primary-green);margin-top:1.5rem;text-shadow:0 0 20px rgba(127,255,0,.3)}
+.cta-section{padding:8rem 2rem;max-width:1400px;margin:0 auto}
+.cta-card{background:linear-gradient(135deg,var(--card-bg),#0F0F0F);border:2px solid var(--primary-green);border-radius:30px;padding:5rem 4rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 0 50px rgba(127,255,0,.2)}
+.cta-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(127,255,0,.1),transparent 50%)}
+.cta-card-content{position:relative;z-index:1}
+.cta-card h2{font-size:3rem;font-weight:800;margin-bottom:1.5rem;color:var(--primary-green);text-shadow:0 0 30px rgba(127,255,0,.5)}
+.cta-card p{font-size:1.3rem;color:var(--text-gray);margin-bottom:2.5rem;max-width:700px;margin-left:auto;margin-right:auto;line-height:1.8}
+.footer{background:var(--card-bg);border-top:2px solid var(--primary-green);padding:4rem 2rem 2rem}
+.footer-container{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:3rem}
+.footer-brand h3{font-family:'Righteous',cursive;font-size:1.8rem;margin-bottom:1rem;color:var(--primary-green);text-shadow:0 0 20px rgba(127,255,0,.5)}
+.footer-brand p{color:var(--text-gray);line-height:1.8;margin-bottom:1.5rem}
+.footer-phone{font-size:1.3rem;color:var(--primary-green);font-weight:700;margin:1rem 0}
+.footer-column h4{font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;color:var(--primary-green)}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:1rem}
+.footer-links a{color:var(--text-gray);text-decoration:none;transition:color .3s ease;cursor:pointer}
+.footer-links a:hover{color:var(--primary-green)}
+.footer-bottom{border-top:1px solid var(--border-color);padding-top:2rem;text-align:center;color:var(--text-gray);font-size:.95rem}
+@media (max-width:968px){
+.nav-links{position:fixed;top:90px;right:-100%;flex-direction:column;background:var(--card-bg);padding:2rem;border-left:2px solid var(--primary-green);height:calc(100vh - 90px);transition:right .3s ease;gap:2rem;align-items:flex-start}
+.nav-links.active{right:0}
+.menu-toggle{display:flex}
+.hero-content{grid-template-columns:1fr;gap:3rem}
+.hero-text h1{font-size:3rem}
+.content-grid{grid-template-columns:1fr}
+.footer-container{grid-template-columns:1fr;gap:2rem}
+.page-header h1{font-size:2.5rem}
+}
+@media (max-width:640px){
+.hero-text h1{font-size:2.2rem}
+.cta-buttons{flex-direction:column}
+.cta-card{padding:3rem 2rem}
+.cta-card h2{font-size:2rem}
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+<div class="nav-container">
+<div class="logo-container">
+<img src="images/logo.jpg" alt="The Green Bike Logo" class="logo-img">
+<div class="logo-text">The Green Bike</div>
+</div>
+<ul class="nav-links" id="navLinks">
+<li><a class="nav-link active" onclick="showPage('accueil')">Accueil</a></li>
+<li><a class="nav-link" onclick="showPage('reparation')">Réparation</a></li>
+<li><a class="nav-link" onclick="showPage('location')">Location</a></li>
+<li><a class="nav-link" onclick="showPage('vente')">Vente</a></li>
+<li><a class="nav-link" onclick="showPage('apropos')">À Propos</a></li>
+<li><a class="nav-link contact-btn" onclick="showPage('contact')">06.47.17.39.57</a></li>
+</ul>
+<div class="menu-toggle" onclick="toggleMenu()">
+<span></span><span></span><span></span>
+</div>
+</div>
+</nav>
+
+<div id="accueil" class="page-content active">
+<section class="hero">
+<div class="hero-content">
+<div class="hero-text">
+<h1>Réparation & Location<br><span class="green-text">de vélos électriques</span></h1>
+<p>Au bord de la Voie Verte à Loir en Vallée. Réparation professionnelle, location flexible et vente de vélos de qualité.</p>
+<div class="phone"><span class="phone-icon">📞</span><span>06.47.17.39.57</span></div>
+<div class="cta-buttons">
+<button class="btn btn-primary" onclick="showPage('location')">Louer un vélo</button>
+<button class="btn btn-secondary" onclick="showPage('vente')">Nos vélos</button>
+</div>
+</div>
+<div class="hero-visual">
+<img src="images/logo.jpg" alt="The Green Bike" class="hero-logo">
+</div>
+</div>
+</section>
+
+<section class="services">
+<div class="section-header">
+<h2>Nos Services</h2>
+<p>Tout pour votre mobilité à vélo</p>
+</div>
+<div class="services-grid">
+<div class="service-card" onclick="showPage('location')">
+<div class="service-icon">🚴</div>
+<h3>Location</h3>
+<p>Vélos électriques, musculaires, VTT, Gravel, tandem, vélos enfants. Location à la journée ou plus. Dépose possible dans les campings et gîtes.</p>
+<span class="service-link">En savoir plus →</span>
+</div>
+<div class="service-card" onclick="showPage('reparation')">
+<div class="service-icon">🔧</div>
+<h3>Réparation</h3>
+<p>Service complet de réparation et maintenance. 3 forfaits de révision disponibles. Apprenti réparateur certifié.</p>
+<span class="service-link">En savoir plus →</span>
+</div>
+<div class="service-card" onclick="showPage('vente')">
+<div class="service-icon">🛒</div>
+<h3>Vente</h3>
+<p>Vélos neufs et d'occasion. Partenaires : Neomouv, Welt. Large choix de vélos électriques et musculaires.</p>
+<span class="service-link">En savoir plus →</span>
+</div>
+<div class="service-card">
+<div class="service-icon">⚡</div>
+<h3>Conversion Électrique</h3>
+<p>Transformez votre vélo en électrique ! Kits de conversion Virvolt. Conseil et installation professionnelle.</p>
+<span class="service-link">Nous contacter →</span>
+</div>
+</div>
+</section>
+
+<section class="cta-section">
+<div class="cta-card">
+<div class="cta-card-content">
+<h2>Label Accueil Vélo 🚴</h2>
+<p>Atelier certifié Accueil Vélo situé au bord de la Voie Verte. Services adaptés aux cyclotouristes.</p>
+<div class="cta-buttons">
+<button class="btn btn-primary" onclick="showPage('contact')">Nous contacter</button>
+<a href="tel:0647173957" class="btn btn-secondary">06.47.17.39.57</a>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<div id="reparation" class="page-content">
+<div class="page-header">
+<h1>Réparation & Maintenance</h1>
+<p class="subtitle">Service professionnel - Apprenti Réparateur</p>
+</div>
+
+<div class="content-grid">
+<div class="content-card">
+<h3>🌊 RÉVISION BORD DE LOIR</h3>
+<ul>
+<li>Contrôle pièces d'usure</li>
+<li>Réglages transmissions et freins</li>
+<li>Serrage des périphériques</li>
+<li>Pression des pneus</li>
+<li>Dévoilage simple des roues</li>
+</ul>
+<div class="price">50€</div>
+</div>
+
+<div class="content-card">
+<h3>🏞️ RÉVISION DE LA VALLÉE</h3>
+<ul>
+<li>Tout de la Révision Bord de Loir</li>
+<li>+ Nettoyage complet du vélo</li>
+<li>Graissage de la chaîne</li>
+<li>Contrôle approfondi</li>
+<li>Finitions soignées</li>
+</ul>
+<div class="price">65€</div>
+</div>
+
+<div class="content-card">
+<h3>⛰️ RÉVISION DU COTEAU</h3>
+<ul>
+<li>Démontage complet</li>
+<li>Graissage intégral</li>
+<li>Contrôle et changement pièces d'usure</li>
+<li>Nettoyage professionnel</li>
+<li>Remontage et réglages précis</li>
+</ul>
+<div class="price">150€</div>
+</div>
+
+<div class="content-card">
+<h3>🔋 Vélos Électriques (VAE)</h3>
+<ul>
+<li>Diagnostic batterie et moteur</li>
+<li>Réparation système électrique</li>
+<li>Mise à jour logicielle</li>
+<li>Remplacement composants</li>
+<li>Test de performance</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>🚴 Trottinettes</h3>
+<ul>
+<li>Réparation trottinettes électriques</li>
+<li>Diagnostic complet</li>
+<li>Changement de pneus</li>
+<li>Batterie et moteur</li>
+<li>Entretien régulier</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>🏢 Entretien de Flottes</h3>
+<ul>
+<li>Mairie de Loir en Vallée (25 vélos)</li>
+<li>Office du Tourisme (10 vélos)</li>
+<li>Contrats d'entretien</li>
+<li>Maintenance régulière</li>
+<li>Service prioritaire</li>
+</ul>
+</div>
+</div>
+
+<div class="cta-section">
+<div class="cta-card">
+<div class="cta-card-content">
+<h2>Besoin d'une réparation ?</h2>
+<p>Prenez rendez-vous pour un diagnostic gratuit</p>
+<button class="btn btn-primary" onclick="showPage('contact')">Prendre RDV</button>
+</div>
+</div>
+</div>
+</div>
+
+<div id="location" class="page-content">
+<div class="page-header">
+<h1>Location de Vélos</h1>
+<p class="subtitle">Réservation 7j/7 - Dépose possible</p>
+</div>
+
+<div class="content-grid">
+<div class="content-card">
+<h3>⚡ Location 4 Heures</h3>
+<ul>
+<li>Vélo électrique : 20€</li>
+<li>Vélo musculaire : 12€</li>
+<li>Vélo enfant : 8€</li>
+<li>Parfait pour une balade</li>
+<li>Tout l'équipement inclus</li>
+</ul>
+<div class="price">À partir de 8€</div>
+</div>
+
+<div class="content-card">
+<h3>📅 Location Journée</h3>
+<ul>
+<li>Vélo électrique : 32€</li>
+<li>Vélo musculaire : 16€</li>
+<li>Vélo enfant : 12€</li>
+<li>Tandem : 31€</li>
+<li>Casque et antivol inclus</li>
+</ul>
+<div class="price">À partir de 12€</div>
+</div>
+
+<div class="content-card">
+<h3>🏕️ Dépose Camping/Gîte</h3>
+<ul>
+<li>Livraison dans un rayon de 20km</li>
+<li>Supplément : 15€</li>
+<li>Idéal pour les vacanciers</li>
+<li>Récupération du vélo incluse</li>
+<li>Service pratique</li>
+</ul>
+<div class="price">+15€</div>
+</div>
+
+<div class="content-card">
+<h3>🚴 Types de Vélos</h3>
+<ul>
+<li>Vélos électriques (VAE)</li>
+<li>Vélos musculaires city</li>
+<li>VTT</li>
+<li>Gravel Welt</li>
+<li>Tandem</li>
+<li>Vélos enfants</li>
+<li>Vélos suiveurs</li>
+<li>Charrettes 1 place</li>
+<li>Sièges enfants</li>
+<li>Casques</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>📋 Équipements Inclus</h3>
+<ul>
+<li>Casque obligatoire fourni</li>
+<li>Antivol sécurisé</li>
+<li>Kit de réparation</li>
+<li>Carte des pistes cyclables</li>
+<li>Conseils d'itinéraires</li>
+<li>Assurance responsabilité civile</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>⏰ Réservation</h3>
+<ul>
+<li>Réservation 7j/7</li>
+<li>Par téléphone : 06.47.17.39.57</li>
+<li>Par email : thegreenbike@outlook.fr</li>
+<li>Sur place (selon disponibilités)</li>
+<li>Départ de l'atelier</li>
+<li>Ou livraison chez vous</li>
+</ul>
+</div>
+</div>
+
+<div class="cta-section">
+<div class="cta-card">
+<div class="cta-card-content">
+<h2>Réservez votre vélo !</h2>
+<p>Location sur réservation toute l'année</p>
+<div class="cta-buttons">
+<a href="tel:0647173957" class="btn btn-primary">06.47.17.39.57</a>
+<a href="mailto:thegreenbike@outlook.fr" class="btn btn-secondary">Envoyer un email</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="vente" class="page-content">
+<div class="page-header">
+<h1>Vente de Vélos</h1>
+<p class="subtitle">Neufs et Occasion - Partenaires officiels</p>
+</div>
+
+<div class="content-grid">
+<div class="content-card">
+<h3>⚡ Vélos Électriques Neomouv</h3>
+<ul>
+<li>VAE urbains et tout-terrain</li>
+<li>Partenaire officiel Neomouv</li>
+<li>Large choix de modèles</li>
+<li>Garantie constructeur</li>
+<li>Service après-vente</li>
+<li>Essai gratuit</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>🚵 Gravel & VTT Welt</h3>
+<ul>
+<li>Partenaire officiel Welt</li>
+<li>Gravel performants</li>
+<li>VTT tout-terrain</li>
+<li>Vélos de qualité</li>
+<li>Conseil personnalisé</li>
+<li>Entretien assuré</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>♻️ Vélos d'Occasion</h3>
+<ul>
+<li>Vélos reconditionnés</li>
+<li>Contrôle qualité complet</li>
+<li>Garantie 6 mois</li>
+<li>Prix attractifs</li>
+<li>Large choix</li>
+<li>Reprise de votre ancien vélo</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>⚡ Conversion Électrique Virvolt</h3>
+<ul>
+<li>Kits de conversion Virvolt</li>
+<li>Transformez votre vélo</li>
+<li>Installation professionnelle</li>
+<li>Plusieurs puissances disponibles</li>
+<li>Garantie constructeur</li>
+<li>Devis gratuit</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>🔧 Pièces P2R</h3>
+<ul>
+<li>Fournisseur officiel P2R</li>
+<li>Pièces détachées de qualité</li>
+<li>Grand stock disponible</li>
+<li>Commande sur demande</li>
+<li>Prix compétitifs</li>
+<li>Livraison rapide</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>💳 Facilités de Paiement</h3>
+<ul>
+<li>Espèces</li>
+<li>Carte bancaire</li>
+<li>Chèque</li>
+<li>Paiement mobile</li>
+<li>Possibilité de financement</li>
+<li>Devis gratuit et sans engagement</li>
+</ul>
+</div>
+</div>
+
+<div class="cta-section">
+<div class="cta-card">
+<div class="cta-card-content">
+<h2>Trouvez votre vélo idéal</h2>
+<p>Venez découvrir notre showroom au bord de la Voie Verte</p>
+<button class="btn btn-primary" onclick="showPage('contact')">Nous rendre visite</button>
+</div>
+</div>
+</div>
+</div>
+
+<div id="apropos" class="page-content">
+<div class="page-header">
+<h1>À Propos de The Green Bike</h1>
+<p class="subtitle">L'histoire de l'atelier et de Romain</p>
+</div>
+
+<div class="content-grid">
+<div class="content-card">
+<h3>🛠️ L'Histoire</h3>
+<ul>
+<li>Ouverture : Juillet 2022</li>
+<li>Au bord de la Voie Verte</li>
+<li>Démarrage dans un garage de 20m²</li>
+<li>Déménagement Mars 2023</li>
+<li>Aujourd'hui : 60m² d'ateliers</li>
+<li>25m² réparation + 35m² location</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>👨‍🔧 Romain Galpin</h3>
+<ul>
+<li>Gérant de l'atelier</li>
+<li>15 ans dans le bâtiment</li>
+<li>Passionné de mécanique depuis 13 ans</li>
+<li>Fan de VTT et Gravel</li>
+<li>Joueur de Bike Polo (Tours)</li>
+<li>Rêve réalisé : son propre atelier</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>🏢 Statut Associatif</h3>
+<ul>
+<li>Présidente : Eva Galpin</li>
+<li>Trésorier : Romain Galpin</li>
+<li>Secrétaire : Romain Galpin</li>
+<li>Association loi 1901</li>
+<li>Engagement local et écologique</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>🎓 Formations & Certifications</h3>
+<ul>
+<li>Apprenti Réparateur certifié</li>
+<li>Label Accueil Vélo</li>
+<li>Partenaire Neomouv</li>
+<li>Partenaire Welt</li>
+<li>Partenaire P2R</li>
+<li>Partenaire Virvolt</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>🏫 Actions Pédagogiques</h3>
+<ul>
+<li>Ateliers "Savoir Rouler à Vélo"</li>
+<li>Interventions dans les écoles</li>
+<li>Sensibilisation à la sécurité</li>
+<li>Apprentissage mécanique vélo</li>
+<li>Promotion du vélo</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>🤝 Partenaires Publics</h3>
+<ul>
+<li>Mairie de Loir en Vallée</li>
+<li>Entretien de 25 vélos</li>
+<li>Office du Tourisme Vallée du Loir</li>
+<li>Entretien de 10 vélos</li>
+<li>Contrats d'entretien réguliers</li>
+</ul>
+</div>
+</div>
+
+<div class="cta-section">
+<div class="cta-card">
+<div class="cta-card-content">
+<h2>Rejoignez l'aventure ! 🚴</h2>
+<p>Un atelier passionné au service de la mobilité douce</p>
+<button class="btn btn-primary" onclick="showPage('contact')">Nous contacter</button>
+</div>
+</div>
+</div>
+</div>
+
+<div id="contact" class="page-content">
+<div class="page-header">
+<h1>Contactez-nous</h1>
+<p class="subtitle">Au bord de la Voie Verte à Loir en Vallée</p>
+</div>
+
+<div class="content-grid">
+<div class="content-card">
+<h3>📞 Téléphone</h3>
+<ul>
+<li><strong>06.47.17.39.57</strong></li>
+<li>Réponse rapide garantie</li>
+<li>Devis gratuit par téléphone</li>
+<li>Prise de rendez-vous</li>
+<li>Renseignements</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>✉️ Email</h3>
+<ul>
+<li><strong>thegreenbike@outlook.fr</strong></li>
+<li>Réponse sous 24h</li>
+<li>Devis par email</li>
+<li>Questions et conseils</li>
+<li>Réservations</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>📍 Adresse</h3>
+<ul>
+<li><strong>The Green Bike</strong></li>
+<li>33 route de Poncé</li>
+<li>72340 Loir en Vallée</li>
+<li>Au bord de la Voie Verte</li>
+<li>Entre Poncé et Ruillé sur Loir</li>
+<li>Parking gratuit</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>⏰ Horaires ÉTÉ</h3>
+<ul>
+<li><strong>Mars à Septembre</strong></li>
+<li>Lundi au Samedi</li>
+<li>9h - 19h</li>
+<li>Ouvert en continu</li>
+<li>Location sur réservation 7j/7</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>❄️ Horaires HIVER</h3>
+<ul>
+<li><strong>Octobre à Février</strong></li>
+<li>Lundi au Vendredi</li>
+<li>14h - 18h</li>
+<li>Location sur réservation uniquement</li>
+<li>Atelier sur rendez-vous</li>
+</ul>
+</div>
+
+<div class="content-card">
+<h3>🚴 Label Accueil Vélo</h3>
+<ul>
+<li>Atelier certifié Accueil Vélo</li>
+<li>Services cyclotouristes</li>
+<li>Abri vélos sécurisé</li>
+<li>Outils et pompe à disposition</li>
+<li>Conseils itinéraires</li>
+<li>Sur la Voie Verte</li>
+</ul>
+</div>
+</div>
+
+<div class="cta-section">
+<div class="cta-card">
+<div class="cta-card-content">
+<h2>Venez nous rendre visite ! 🚴</h2>
+<p>Au bord de la Voie Verte, entre Poncé et Ruillé sur Loir</p>
+<div class="cta-buttons">
+<a href="tel:0647173957" class="btn btn-primary">06.47.17.39.57</a>
+<a href="mailto:thegreenbike@outlook.fr" class="btn btn-secondary">Envoyer un email</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+<div class="footer-container">
+<div class="footer-brand">
+<h3>The Green Bike</h3>
+<p>Atelier de réparation, location et vente de vélos au bord de la Voie Verte. Label Accueil Vélo.</p>
+<div class="footer-phone">📞 06.47.17.39.57</div>
+<div class="footer-phone" style="font-size:1.1rem;margin-top:0.5rem">✉️ thegreenbike@outlook.fr</div>
+</div>
+
+<div class="footer-column">
+<h4>Services</h4>
+<ul class="footer-links">
+<li><a onclick="showPage('location')">Location</a></li>
+<li><a onclick="showPage('reparation')">Réparation</a></li>
+<li><a onclick="showPage('vente')">Vente</a></li>
+<li><a onclick="showPage('apropos')">À Propos</a></li>
+</ul>
+</div>
+
+<div class="footer-column">
+<h4>Partenaires</h4>
+<ul class="footer-links">
+<li>Neomouv (VAE)</li>
+<li>Welt (Gravel/VTT)</li>
+<li>P2R (Pièces)</li>
+<li>Virvolt (Conversion)</li>
+<li>Label Accueil Vélo</li>
+</ul>
+</div>
+
+<div class="footer-column">
+<h4>Adresse</h4>
+<ul class="footer-links">
+<li>33 route de Poncé</li>
+<li>72340 Loir en Vallée</li>
+<li>Au bord Voie Verte</li>
+<li><a onclick="showPage('contact')">Horaires & Plan</a></li>
+</ul>
+</div>
+</div>
+
+<div class="footer-bottom">
+<p>&copy; 2026 The Green Bike - Association loi 1901 | Présidente: Eva Galpin | Gérant: Romain Galpin</p>
+</div>
+</footer>
+
+<script>
+function showPage(pageId){
+const pages=document.querySelectorAll('.page-content');
+pages.forEach(page=>page.classList.remove('active'));
+document.getElementById(pageId).classList.add('active');
+const navLinks=document.querySelectorAll('.nav-link');
+navLinks.forEach(link=>link.classList.remove('active'));
+const activeLink=document.querySelector(`a[onclick="showPage('${pageId}')"]`);
+if(activeLink&&activeLink.classList.contains('nav-link')){activeLink.classList.add('active')}
+window.scrollTo({top:0,behavior:'smooth'});
+document.getElementById('navLinks').classList.remove('active');
+}
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('active')}
+document.querySelectorAll('.nav-link').forEach(link=>{
+link.addEventListener('click',()=>{document.getElementById('navLinks').classList.remove('active')})
+});
+document.querySelectorAll('.service-card').forEach(card=>{
+card.addEventListener('click',function(e){
+if(!e.target.classList.contains('service-link')){
+const onclick=this.getAttribute('onclick');
+if(onclick){eval(onclick)}
+}
+})
+});
+</script>
+</body>
+</html>
