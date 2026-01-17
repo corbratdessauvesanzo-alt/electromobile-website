@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroMobile - Mobilité Électrique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A0E27;
+            --accent: #00FF94;
+            --accent-secondary: #00D4FF;
+            --surface: #1A1F3A;
+            --text: #E8ECF5;
+            --text-dim: #8B92B0;
+            --border: #2A3050;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* Menu Toggle pour mobile */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--accent);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 255, 148, 0.15), transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-text h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            color: var(--primary);
+            box-shadow: 0 4px 20px rgba(0, 255, 148, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 255, 148, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .visual-card {
+            background: linear-gradient(135deg, var(--surface), rgba(26, 31, 58, 0.5));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 255, 148, 0.2);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-link {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .service-link:hover {
+            gap: 1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, transparent, rgba(26, 31, 58, 0.5), transparent);
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--surface), rgba(26, 31, 58, 0.8));
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            border-color: var(--accent);
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .feature-item h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-item p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, var(--surface), rgba(26, 31, 58, 0.8));
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 5rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 148, 0.1), transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-card h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-card p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-brand p {
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Page Content Sections */
+        .page-content {
+            display: none;
+            min-height: 70vh;
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .content-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .content-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .content-card ul {
+            list-style: none;
+            color: var(--text-dim);
+        }
+
+        .content-card ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .content-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                flex-direction: column;
+                background: var(--surface);
+                padding: 2rem;
+                border-left: 1px solid var(--border);
+                height: calc(100vh - 80px);
+                transition: right 0.3s ease;
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-card {
+                padding: 3rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">ElectroMobile</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil" class="nav-link active" onclick="showPage('accueil')">Accueil</a></li>
+                <li><a href="#reparation" class="nav-link" onclick="showPage('reparation')">Réparation</a></li>
+                <li><a href="#location" class="nav-link" onclick="showPage('location')">Location</a></li>
+                <li><a href="#conversion" class="nav-link" onclick="showPage('conversion')">Conversion Électrique</a></li>
+                <li><a href="#vente" class="nav-link" onclick="showPage('vente')">Vente</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Accueil -->
+    <div id="accueil" class="page-content active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>
+                        La mobilité<br>
+                        <span class="gradient-text">électrique</span><br>
+                        de demain
+                    </h1>
+                    <p>
+                        Spécialiste de la mobilité électrique, nous transformons votre vision 
+                        en réalité avec des solutions innovantes et durables.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#vente" class="btn btn-primary" onclick="showPage('vente')">Découvrir nos véhicules</a>
+                        <a href="#conversion" class="btn btn-secondary" onclick="showPage('conversion')">Conversion électrique</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="visual-card">
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">Véhicules vendus</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">Clients satisfaits</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">150+</div>
+                                <div class="stat-label">Conversions réalisées</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Support technique</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services">
+            <div class="section-header">
+                <h2>Nos Services</h2>
+                <p>Des solutions complètes pour votre mobilité électrique</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" onclick="showPage('vente')">
+                    <div class="service-icon">🚗</div>
+                    <h3>Vente</h3>
+                    <p>Large gamme de véhicules électriques neufs et d'occasion, sélectionnés avec soin pour leur qualité et performance.</p>
+                    <a href="#vente" class="service-link">
+                        En savoir plus →
+                    </a>
+                </div>
+                <div class="service-card" onclick="showPage('location')">
+                    <div class="service-icon">🔑</div>
+                    <h3>Location</h3>
+                    <p>Solutions de location flexibles pour tester la mobilité électrique sans engagement, courte ou longue durée.</p>
+                    <a href="#location" class="service-link">
+                        En savoir plus →
+                    </a>
+                </div>
+                <div class="service-card" onclick="showPage('conversion')">
+                    <div class="service-icon">⚡</div>
+                    <h3>Conversion Électrique</h3>
+                    <p>Transformez votre véhicule thermique en électrique avec notre expertise technique et nos kits certifiés.</p>
+                    <a href="#conversion" class="service-link">
+                        En savoir plus →
+                    </a>
+                </div>
+                <div class="service-card" onclick="showPage('reparation')">
+                    <div class="service-icon">🔧</div>
+                    <h3>Réparation</h3>
+                    <p>Service après-vente complet, maintenance préventive et réparations par des techniciens certifiés.</p>
+                    <a href="#reparation" class="service-link">
+                        En savoir plus →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="features-container">
+                <div class="section-header">
+                    <h2>Pourquoi nous choisir ?</h2>
+                    <p>L'excellence à chaque étape de votre parcours</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏆</div>
+                        <h4>Expertise reconnue</h4>
+                        <p>Plus de 10 ans d'expérience dans la mobilité électrique</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <h4>Qualité certifiée</h4>
+                        <p>Tous nos véhicules et services sont certifiés aux normes européennes</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💚</div>
+                        <h4>Engagement écologique</h4>
+                        <p>Pour une mobilité durable et respectueuse de l'environnement</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💰</div>
+                        <h4>Prix compétitifs</h4>
+                        <p>Les meilleurs tarifs du marché avec un excellent rapport qualité-prix</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🛡️</div>
+                        <h4>Garantie étendue</h4>
+                        <p>Garantie complète sur tous nos véhicules et conversions</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👥</div>
+                        <h4>Accompagnement personnalisé</h4>
+                        <p>Une équipe dédiée pour vous conseiller à chaque étape</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-card">
+                <div class="cta-card-content">
+                    <h2>Prêt à passer à l'électrique ?</h2>
+                    <p>
+                        Contactez-nous dès aujourd'hui pour découvrir comment nous pouvons 
+                        vous accompagner dans votre transition vers la mobilité électrique.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Demander un devis</a>
+                        <a href="tel:+33123456789" class="btn btn-secondary">Nous appeler</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Page Réparation -->
+    <div id="reparation" class="page-content">
+        <div class="page-header">
+            <h1>Réparation & Maintenance</h1>
+            <p class="subtitle">Un service après-vente d'excellence pour prolonger la vie de votre véhicule</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Maintenance préventive</h3>
+                <ul>
+                    <li>Révision complète tous les 10 000 km</li>
+                    <li>Contrôle de la batterie et du système de charge</li>
+                    <li>Vérification des freins et suspensions</li>
+                    <li>Mise à jour logicielle</li>
+                    <li>Diagnostic électronique complet</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Réparation batterie</h3>
+                <ul>
+                    <li>Diagnostic de l'état de santé (SOH)</li>
+                    <li>Remplacement de cellules défectueuses</li>
+                    <li>Recalibrage du système de gestion (BMS)</li>
+                    <li>Optimisation de la capacité</li>
+                    <li>Garantie sur les interventions</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Réparation moteur électrique</h3>
+                <ul>
+                    <li>Diagnostic des pannes moteur</li>
+                    <li>Réparation ou remplacement du moteur</li>
+                    <li>Entretien du système de refroidissement</li>
+                    <li>Contrôle des roulements et joints</li>
+                    <li>Test de performance après intervention</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Électronique & Software</h3>
+                <ul>
+                    <li>Mise à jour du firmware</li>
+                    <li>Réparation de l'électronique de puissance</li>
+                    <li>Diagnostic et réparation du tableau de bord</li>
+                    <li>Calibrage des capteurs</li>
+                    <li>Réparation du système de charge</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Carrosserie & Peinture</h3>
+                <ul>
+                    <li>Réparation des impacts et rayures</li>
+                    <li>Peinture complète ou partielle</li>
+                    <li>Débosselage sans peinture</li>
+                    <li>Remplacement de pare-brise</li>
+                    <li>Rénovation optiques de phares</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Services express</h3>
+                <ul>
+                    <li>Changement de pneus</li>
+                    <li>Géométrie et parallélisme</li>
+                    <li>Remplacement de freins</li>
+                    <li>Recharge climatisation</li>
+                    <li>Véhicule de courtoisie disponible</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-card">
+                <div class="cta-card-content">
+                    <h2>Besoin d'une réparation ?</h2>
+                    <p>Prenez rendez-vous avec nos techniciens certifiés</p>
+                    <a href="#contact" class="btn btn-primary">Prendre rendez-vous</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Location -->
+    <div id="location" class="page-content">
+        <div class="page-header">
+            <h1>Location de véhicules électriques</h1>
+            <p class="subtitle">Des solutions flexibles adaptées à tous vos besoins</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Location courte durée</h3>
+                <ul>
+                    <li>À partir de 1 jour</li>
+                    <li>Idéal pour tester avant d'acheter</li>
+                    <li>Véhicules récents et entretenus</li>
+                    <li>Assurance tous risques incluse</li>
+                    <li>Kilométrage illimité</li>
+                    <li>Assistance 24/7</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Location longue durée (LLD)</h3>
+                <ul>
+                    <li>Durée de 12 à 60 mois</li>
+                    <li>Loyer mensuel fixe et prévisible</li>
+                    <li>Maintenance incluse</li>
+                    <li>Véhicule de remplacement en cas de panne</li>
+                    <li>Option d'achat en fin de contrat</li>
+                    <li>Solution pour professionnels et particuliers</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Location avec option d'achat (LOA)</h3>
+                <ul>
+                    <li>Devenez propriétaire à la fin du contrat</li>
+                    <li>Mensualités adaptées à votre budget</li>
+                    <li>Apport initial modulable</li>
+                    <li>Entretien et garantie inclus</li>
+                    <li>Flexibilité de durée</li>
+                    <li>Fiscalité avantageuse pour les pros</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Location pour entreprises</h3>
+                <ul>
+                    <li>Gestion de flottes électriques</li>
+                    <li>Solutions personnalisées selon vos besoins</li>
+                    <li>Accompagnement à l'électrification</li>
+                    <li>Bornes de recharge incluses</li>
+                    <li>Reporting et suivi de la flotte</li>
+                    <li>Avantages fiscaux et écologiques</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Notre gamme de véhicules</h3>
+                <ul>
+                    <li>Citadines électriques compactes</li>
+                    <li>Berlines familiales</li>
+                    <li>SUV et crossovers électriques</li>
+                    <li>Utilitaires et fourgons</li>
+                    <li>Véhicules premium et sportifs</li>
+                    <li>Autonomie de 200 à 600 km</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Services inclus</h3>
+                <ul>
+                    <li>Livraison à domicile ou en entreprise</li>
+                    <li>Formation à la conduite électrique</li>
+                    <li>Carte de recharge multi-réseaux</li>
+                    <li>Assurance adaptée</li>
+                    <li>Maintenance préventive programmée</li>
+                    <li>Mise à jour logicielle régulière</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-card">
+                <div class="cta-card-content">
+                    <h2>Trouvez votre solution de location</h2>
+                    <p>Demandez un devis personnalisé en quelques clics</p>
+                    <a href="#contact" class="btn btn-primary">Demander un devis</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Conversion -->
+    <div id="conversion" class="page-content">
+        <div class="page-header">
+            <h1>Conversion électrique</h1>
+            <p class="subtitle">Transformez votre véhicule thermique en véhicule 100% électrique</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Le processus de conversion</h3>
+                <ul>
+                    <li>Étude de faisabilité technique</li>
+                    <li>Devis personnalisé et détaillé</li>
+                    <li>Retrait du moteur thermique</li>
+                    <li>Installation moteur et batterie électrique</li>
+                    <li>Intégration système de charge</li>
+                    <li>Homologation et certification</li>
+                    <li>Livraison clé en main</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Véhicules éligibles</h3>
+                <ul>
+                    <li>Voitures anciennes et de collection</li>
+                    <li>Utilitaires et camionnettes</li>
+                    <li>Véhicules 4x4 et SUV</li>
+                    <li>Motos et scooters</li>
+                    <li>Véhicules professionnels</li>
+                    <li>Bateaux et engins nautiques</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Options de batterie</h3>
+                <ul>
+                    <li>Batteries lithium-ion haute densité</li>
+                    <li>Autonomie de 100 à 400 km</li>
+                    <li>Capacité de 20 à 100 kWh</li>
+                    <li>Garantie constructeur 5 à 8 ans</li>
+                    <li>Gestion thermique optimisée</li>
+                    <li>Recyclage en fin de vie</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Performances</h3>
+                <ul>
+                    <li>Couple instantané disponible</li>
+                    <li>Accélération améliorée</li>
+                    <li>Silence de fonctionnement</li>
+                    <li>Entretien réduit de 70%</li>
+                    <li>Coût au kilomètre divisé par 3</li>
+                    <li>Zéro émission locale</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Homologation & Légalité</h3>
+                <ul>
+                    <li>Conformité aux normes européennes</li>
+                    <li>Certification UTAC-CERAM</li>
+                    <li>Modification carte grise</li>
+                    <li>Contrôle technique spécialisé</li>
+                    <li>Assurance véhicule converti</li>
+                    <li>Éligibilité primes et bonus</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Tarifs & Financement</h3>
+                <ul>
+                    <li>À partir de 8 000€ selon le projet</li>
+                    <li>Devis gratuit et sans engagement</li>
+                    <li>Paiement en plusieurs fois possible</li>
+                    <li>Aides régionales disponibles</li>
+                    <li>Amortissement sur 5 ans</li>
+                    <li>ROI économique intéressant</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-card">
+                <div class="cta-card-content">
+                    <h2>Intéressé par une conversion ?</h2>
+                    <p>Contactez-nous pour une étude personnalisée de votre projet</p>
+                    <a href="#contact" class="btn btn-primary">Étudier mon projet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Vente -->
+    <div id="vente" class="page-content">
+        <div class="page-header">
+            <h1>Vente de véhicules électriques</h1>
+            <p class="subtitle">Une sélection rigoureuse de véhicules neufs et d'occasion</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Véhicules neufs</h3>
+                <ul>
+                    <li>Derniers modèles du marché</li>
+                    <li>Toutes marques disponibles</li>
+                    <li>Garantie constructeur complète</li>
+                    <li>Financement à taux compétitifs</li>
+                    <li>Prime à la conversion cumulable</li>
+                    <li>Livraison sous 2 à 8 semaines</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Véhicules d'occasion</h3>
+                <ul>
+                    <li>Contrôle technique approfondi</li>
+                    <li>Batterie testée et certifiée</li>
+                    <li>Garantie 6 à 12 mois incluse</li>
+                    <li>Historique complet du véhicule</li>
+                    <li>Prix jusqu'à 40% moins cher</li>
+                    <li>Reprise de votre ancien véhicule</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Citadines électriques</h3>
+                <ul>
+                    <li>Parfaites pour la ville</li>
+                    <li>Faible coût d'utilisation</li>
+                    <li>Facilité de stationnement</li>
+                    <li>Autonomie 200-300 km</li>
+                    <li>Recharge rapide 30 min</li>
+                    <li>À partir de 20 000€</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Berlines & Familiales</h3>
+                <ul>
+                    <li>Espace et confort optimal</li>
+                    <li>Technologie embarquée avancée</li>
+                    <li>Autonomie 400-600 km</li>
+                    <li>Coffre spacieux</li>
+                    <li>Sécurité 5 étoiles Euro NCAP</li>
+                    <li>À partir de 35 000€</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>SUV & Crossovers</h3>
+                <ul>
+                    <li>Position de conduite haute</li>
+                    <li>Traction intégrale disponible</li>
+                    <li>Grande autonomie 500+ km</li>
+                    <li>Coffre modulable</li>
+                    <li>Capacité de remorquage</li>
+                    <li>À partir de 45 000€</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Services d'achat</h3>
+                <ul>
+                    <li>Essai gratuit de 48h</li>
+                    <li>Conseil personnalisé</li>
+                    <li>Simulation de financement</li>
+                    <li>Installation borne de recharge</li>
+                    <li>Formation à la conduite électrique</li>
+                    <li>Livraison à domicile gratuite</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-card">
+                <div class="cta-card-content">
+                    <h2>Trouvez votre véhicule électrique idéal</h2>
+                    <p>Venez découvrir notre showroom et essayer nos véhicules</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Prendre rendez-vous</a>
+                        <a href="#catalogue" class="btn btn-secondary">Voir le catalogue</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>ElectroMobile</h3>
+                <p>
+                    Votre partenaire de confiance pour une mobilité électrique 
+                    durable et performante.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">f</a>
+                    <a href="#" class="social-link">in</a>
+                    <a href="#" class="social-link">tw</a>
+                    <a href="#" class="social-link">ig</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#vente" onclick="showPage('vente')">Vente</a></li>
+                    <li><a href="#location" onclick="showPage('location')">Location</a></li>
+                    <li><a href="#conversion" onclick="showPage('conversion')">Conversion</a></li>
+                    <li><a href="#reparation" onclick="showPage('reparation')">Réparation</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Entreprise</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#team">Notre équipe</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#careers">Carrières</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="tel:+33123456789">+33 1 23 45 67 89</a></li>
+                    <li><a href="mailto:contact@electromobile.fr">contact@electromobile.fr</a></li>
+                    <li><a href="#location">123 Rue de l'Électrique<br>75001 Paris</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 ElectroMobile. Tous droits réservés. | Mentions légales | Politique de confidentialité</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation
+        function showPage(pageId) {
+            // Cacher toutes les pages
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Afficher la page sélectionnée
+            document.getElementById(pageId).classList.add('active');
+            
+            // Mettre à jour les liens actifs
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            const activeLink = document.querySelector(`a[href="#${pageId}"]`);
+            if (activeLink && activeLink.classList.contains('nav-link')) {
+                activeLink.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Fermer le menu mobile si ouvert
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // Menu toggle pour mobile
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Fermer le menu mobile au clic sur un lien
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Gérer les clics sur les cartes de service
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('service-link')) {
+                    const link = this.querySelector('.service-link');
+                    if (link) {
+                        const pageId = link.getAttribute('href').substring(1);
+                        showPage(pageId);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
