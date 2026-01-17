@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Green Bike - Réparation & Location de vélos </title>
+    <title>The Green Bike - Réparation & Location de vélos électriques</title>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -296,7 +296,14 @@
             animation: fadeInUp 0.8s ease-out 1s both;
         }
 
-     
+        .hero-logo {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            filter: drop-shadow(0 0 50px rgba(127, 255, 0, 0.5));
+            animation: rotate 20s linear infinite;
+        }
 
         @keyframes rotate {
             from { transform: rotate(0deg); }
@@ -526,6 +533,7 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(127, 255, 0, 0.1), transparent 50%);
+            animation: rotate 20s linear infinite;
         }
 
         .cta-card-content {
