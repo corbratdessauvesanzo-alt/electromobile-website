@@ -1,9 +1,0 @@
-{
-  "name": "electromobile-website",
-  "version": "1.0.0",
-  "description": "Site web ElectroMobile - Mobilité électrique",
-  "scripts": {
-    "dev": "npx serve public",
-    "build": "echo 'No build needed - static site'"
-  }
-}
